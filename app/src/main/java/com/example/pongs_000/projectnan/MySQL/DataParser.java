@@ -73,6 +73,10 @@ public class DataParser extends AsyncTask<Void,Void,Boolean> {
                 String graden = jo.getString("graden");
                 String time = jo.getString("time");
                 String image = jo.getString("image1");
+                String image1 = jo.getString("image2");
+                String image2 = jo.getString("image3");
+                String image3 = jo.getString("image4");
+                String image4 = jo.getString("image5");
                 String description = jo.getString("description");
                 String price = jo.getString("price");
                 String latitude = jo.getString("latitude");
@@ -87,6 +91,10 @@ public class DataParser extends AsyncTask<Void,Void,Boolean> {
                 SeriOBJs.setGraden(graden);
                 SeriOBJs.setTime(time);
                 SeriOBJs.setImage(image);
+                SeriOBJs.setImage2(image1);
+                SeriOBJs.setImage3(image2);
+                SeriOBJs.setImage4(image3);
+                SeriOBJs.setImage5(image4);
                 SeriOBJs.setDescription(description);
                 SeriOBJs.setPrice(price);
                 SeriOBJs.setLatitude(latitude);

@@ -3,14 +3,22 @@ package com.example.pongs_000.projectnan;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -18,7 +26,9 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ceylonlabs.imageviewpopup.ImagePopup;
 import com.example.pongs_000.projectnan.UI.PicassoClient;
+import com.example.pongs_000.projectnan.UI.PicassoMulti;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -69,12 +79,70 @@ public class Detail extends FragmentActivity implements OnMapReadyCallback, Goog
     private GoogleMap mMap;
     private UiSettings mUiSettings;
     private Marker marker;
-    private String graden,time,image,description,latitude,longitude,price,period,telephone,category;
+    private String graden,time,image,image1,image2,image3,image4,description,latitude,longitude,price,period,telephone,category;
+    private ImageView iv1,iv2,iv3,iv4;
+    private ImagePopup imagePopup;
+
+    int height;
+    int width;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
+        toolbar.setTitle("  รายละเอียด");
+        toolbar.setLogo(R.drawable.ic_arrow_back_black_24dp);
+        toolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
+            height = (int)(displayMetrics.heightPixels / displayMetrics.density + 0.5);
+            width = (int)(displayMetrics.widthPixels / displayMetrics.density + 0.5);
+
+
+        imagePopup = new ImagePopup(this);
+
+        imagePopup.setBackgroundColor(Color.TRANSPARENT);
+        imagePopup.setWindowWidth(height);
+        imagePopup.setWindowHeight(width);
+        imagePopup.setHideCloseIcon(false);
+        imagePopup.setImageOnClickClose(true);
+
+        iv1 = (ImageView) findViewById(R.id.image1);
+        iv1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imagePopup.initiatePopup(iv1.getDrawable());
+            }
+        });
+        iv2 = (ImageView) findViewById(R.id.image2);
+        iv2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imagePopup.initiatePopup(iv2.getDrawable());
+            }
+        });
+        iv3 = (ImageView) findViewById(R.id.image3);
+        iv3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imagePopup.initiatePopup(iv3.getDrawable());
+            }
+        });
+        iv4 = (ImageView) findViewById(R.id.image4);
+        iv4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imagePopup.initiatePopup(iv4.getDrawable());
+            }
+        });
+
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.googleMap);
         mapFragment.getMapAsync(this);
@@ -90,6 +158,10 @@ public class Detail extends FragmentActivity implements OnMapReadyCallback, Goog
         graden = i.getExtras().getString("GRADEN_KEY");
         time = i.getExtras().getString("TIME_KEY");
         image = i.getExtras().getString("IMAGE_KEY");
+        image1 = i.getExtras().getString("IMAGE1_KEY");
+        image2 = i.getExtras().getString("IMAGE2_KEY");
+        image3 = i.getExtras().getString("IMAGE3_KEY");
+        image4 = i.getExtras().getString("IMAGE4_KEY");
         description = i.getExtras().getString("DES_KEY");
         latitude = i.getExtras().getString("LATITUDE_KEY");
         longitude = i.getExtras().getString("LONGITUDE_KEY");
@@ -169,6 +241,10 @@ public class Detail extends FragmentActivity implements OnMapReadyCallback, Goog
         tvphone.setText(telephone);
         tvcategory.setText(category);
         PicassoClient.downloadImage(this,image,ivseri);
+        PicassoMulti.downloadImage(this,image1,iv1);
+        PicassoMulti.downloadImage(this,image2,iv2);
+        PicassoMulti.downloadImage(this,image3,iv3);
+        PicassoMulti.downloadImage(this,image4,iv4);
 
 //        googleBTN.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -183,8 +259,7 @@ public class Detail extends FragmentActivity implements OnMapReadyCallback, Goog
 //        });
 
     }
-
-
+    //pong
     @Override
     public View getInfoWindow(Marker marker) {
         return null;
@@ -219,6 +294,20 @@ public class Detail extends FragmentActivity implements OnMapReadyCallback, Goog
         marker.showInfoWindow();
         mMap.setOnInfoWindowClickListener(this);
 
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        this.overridePendingTransition(android.R.anim.fade_in,
+                android.R.anim.fade_out);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        this.overridePendingTransition(android.R.anim.fade_in,
+                android.R.anim.fade_out);
     }
 
 

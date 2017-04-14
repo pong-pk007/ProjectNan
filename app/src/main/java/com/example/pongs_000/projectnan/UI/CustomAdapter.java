@@ -62,7 +62,7 @@ public class CustomAdapter extends RecyclerView.Adapter<MyViewHoder> {
         holder.setItemClickListener(new ItemClickListener() {
             @Override
             public void onItemClick() {
-                OpenDetailRestaurantActivity(SR.getSeri_id(),SR.getGraden(),SR.getTime(),SR.getImage(),SR.getDescription(),SR.getLatitude(),SR.getLongitude(),SR.getPrice(),SR.getPeriod(),SR.getTelephone(),SR.getCategory());
+                OpenDetailRestaurantActivity(SR.getSeri_id(),SR.getGraden(),SR.getTime(),SR.getImage(), SR.getImage2(),SR.getImage3(), SR.getImage4(),SR.getImage5(),SR.getDescription(),SR.getLatitude(),SR.getLongitude(),SR.getPrice(),SR.getPeriod(),SR.getTelephone(),SR.getCategory());
             }
         });
     }
@@ -74,7 +74,7 @@ public class CustomAdapter extends RecyclerView.Adapter<MyViewHoder> {
     }
 
 
-    private void OpenDetailRestaurantActivity(int seri_id, String graden,String time,String image,String description,String latitude,String longitude,String price,String period,String telephone,String category){
+    private void OpenDetailRestaurantActivity(int seri_id, String graden,String time,String image, String image2, String image3, String image4, String image5 ,String description,String latitude,String longitude,String price,String period,String telephone,String category){
 
         Intent i = new Intent(c, Detail.class);
 
@@ -85,6 +85,10 @@ public class CustomAdapter extends RecyclerView.Adapter<MyViewHoder> {
         i.putExtra("LATITUDE_KEY",latitude);
         i.putExtra("LONGITUDE_KEY",longitude);
         i.putExtra("IMAGE_KEY",image);
+        i.putExtra("IMAGE1_KEY",image2);
+        i.putExtra("IMAGE2_KEY",image3);
+        i.putExtra("IMAGE3_KEY",image4);
+        i.putExtra("IMAGE4_KEY",image5);
         i.putExtra("PRICE_KEY" ,price);
         i.putExtra("PERIOD_KEY", period);
         i.putExtra("PHONE_KEY",telephone);
